@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ShakaPlayer } from '@/components/shaka-player/shaka-player';
+import { HttpClient } from '@angular/common/http';
 @Component({
   imports: [RouterModule, ShakaPlayer],
   selector: 'app-root',
@@ -8,5 +9,13 @@ import { ShakaPlayer } from '@/components/shaka-player/shaka-player';
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'Streamy Player';
+  url: string | undefined = undefined;
+  http: HttpClient = inject(HttpClient);
+
+  constructor() {
+    this.http.get<{url: string}>('/api').subscribe((data) => {
+      this.url = data.url;
+      console.log(data);
+    });
+  }
 }

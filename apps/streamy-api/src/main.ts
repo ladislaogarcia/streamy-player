@@ -11,7 +11,9 @@ const app = express();
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to STREAMY API !!!' });
+  res.send({
+    url: '/dash/tears_of_steel/cleartext/stream.mpd'
+  });
 });
 
 const port = process.env.PORT || 3000;

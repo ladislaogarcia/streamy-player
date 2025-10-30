@@ -73,10 +73,7 @@
         }
       },
       "defaultConfiguration": "development",
-      "dependsOn": ["streamy-api:serve"],
-      "options": {
-        "proxyConfig": "apps/streamy-player/proxy.conf.json"
-      }
+      "dependsOn": ["streamy-api:serve"]
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

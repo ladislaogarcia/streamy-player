@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "GPL-3.0-only",
   "scripts": {
-    "frontend:dev": "nx serve streamy-player"
+    "frontend:dev": "nx serve streamy-player",
+    "server:dev": "nx serve streamy-api"
   },
   "dependencies": {
     "@angular/common": "~20.3.0",
