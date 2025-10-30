@@ -1,6 +1,8 @@
+@if (url) {
 <header>
-  <h1>{{ title }}</h1>
+  <h1>Streamy Player</h1>
   <small>HOVER over the player to watch the UI and press PLAY to start playback</small>
 </header>
-<app-shaka-player></app-shaka-player>
+}
+<app-shaka-player [url]="url"></app-shaka-player>
 <router-outlet></router-outlet>
