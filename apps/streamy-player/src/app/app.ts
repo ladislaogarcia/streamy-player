@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
-
+import { ShakaPlayer } from '@/components/shaka-player/shaka-player';
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [RouterModule, ShakaPlayer],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'streamy-player';
+  protected title = 'Streamy Player';
 }

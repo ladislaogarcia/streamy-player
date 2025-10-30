@@ -13,7 +13,10 @@
         "outputPath": "dist/apps/streamy-player/browser",
         "index": "apps/streamy-player/src/index.html",
         "main": "apps/streamy-player/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js",
+          "node_modules/shaka-player/externs/polyfill.js"
+        ],
         "tsConfig": "apps/streamy-player/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -22,7 +25,11 @@
             "input": "apps/streamy-player/public"
           }
         ],
-        "styles": ["apps/streamy-player/src/styles.scss"]
+        "styles": [
+          "apps/streamy-player/src/styles.scss",
+          "node_modules/shaka-player/dist/controls.css"
+        ],
+        "scripts": ["node_modules/shaka-player/dist/shaka-player.ui.debug.js"]
       },
       "configurations": {
         "production": {
@@ -54,6 +61,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "proxyConfig": "apps/streamy-player/proxy.conf.json"
+      },
       "configurations": {
         "production": {
           "buildTarget": "streamy-player:build:production"

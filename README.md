@@ -1,17 +1,44 @@
-# StreamyPlayer
+# Streamy Player
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Este proyecto es un agregador de películas y contenido de video legal y gratuito disponible en internet, construido sobre un monorepo de **Nx** con **Angular** y **Express**.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Arquitectura
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+La arquitectura está diseñada para ser escalable y mantenible, separando responsabilidades:
 
-## Run tasks
+- **Nginx**: Actúa como proxy reverso, siendo el único punto de entrada.
+- **Angular**: Es la Single-Page Application (SPA) que consume los datos.
+- **Express**: Servirá como la API/Gateway para la lógica de negocio.
 
-To run the dev server for your app, use:
+Para una explicación detallada de la arquitectura y la configuración, consulta el archivo INSTRUCTIONS.md.
+
+## 🚀 Iniciar el Entorno de Desarrollo
+
+Para levantar el entorno completo, necesitarás 3 terminales:
+
+1.  **Terminal 1: Iniciar el Proxy Reverso (Nginx)**
+    ```sh
+    nginx -p . -c nginx.dev.conf
+    ```
+2.  **Terminal 2: Iniciar la API (Express)**
+    ```sh
+    nx serve api
+    ```
+3.  **Terminal 3: Iniciar el Frontend (Angular)**
+    ```sh
+    nx serve streamy-player
+    ```
+
+Una vez que todo esté en ejecución, abre tu navegador en **`http://localhost:8080`**.
+
+## Comandos Útiles de Nx
 
 ```sh
-npx nx serve streamy-player
+# Generar una nueva librería
+nx g @nx/angular:lib my-lib
+
+# Ver el grafo de dependencias del proyecto
+nx graph
 ```
 
 To create a production bundle:

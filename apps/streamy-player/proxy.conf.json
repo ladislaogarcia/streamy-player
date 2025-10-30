@@ -1,0 +1,7 @@
+{
+  "/dash": {
+    "target": "http://www.bok.net",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
