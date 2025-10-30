@@ -3,6 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -14,42 +17,63 @@ import shaka from 'shaka-player-ui';
   styleUrl: './shaka-player.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShakaPlayer implements AfterViewInit {
+export class ShakaPlayer implements OnChanges, AfterViewInit {
   @ViewChild('videoPlayer') videoElementRef: ElementRef | undefined;
   @ViewChild('videoContainer') videoContainerRef: ElementRef | undefined;
+
+  @Input() url?: string | undefined;
 
   videoElement!: HTMLVideoElement;
   videoContainerElement!: HTMLDivElement;
   player!: shaka.Player;
+  error: string | undefined = undefined;
+  errorMessage: string | undefined = undefined;
 
   // constructor() {}
 
-  private async initPlayer() {
+  private async createPlayerUI() {
     this.player = new shaka.Player();
     await this.player.attach(this.videoElement);
-
-    const ui = new shaka.ui.Overlay(
+    // Also it can ve storaged in a variable if needed later
+    // const ui = new shaka.ui.Overlay(
+    //   this.player,
+    //   this.videoContainerElement,
+    //   this.videoElement
+    // );
+    new shaka.ui.Overlay(
       this.player,
       this.videoContainerElement,
       this.videoElement
     );
-    // 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd'
-    //   .load('http://www.bok.net/dash/tears_of_steel/cleartext/stream.mpd')
-    try {
-      await this.player.load('/dash/tears_of_steel/cleartext/stream.mpd');
-      // Una vez que la carga es exitosa, intentamos iniciar la reproducción.
-      // this.videoElement.play();
-      // La reproducción automática solo funcionará si el video está silenciado (muted).
-      // const promise = this.videoElement.play();
-      // if (promise !== undefined) {
-      //   promise.catch((error) => {
-      //     // El navegador bloqueó el autoplay. No hacemos nada y dejamos que el usuario
-      //     // inicie la reproducción con los controles.
-      //     console.warn('Autoplay was prevented by the browser.', error);
-      //   });
-      // }
-    } catch (error) {
-      console.error('Error loading manifest or playing video', error);
+  }
+
+  private async initPlayer() {
+    if (this.player && this.url) {
+      this.player
+        .load(this.url)
+        .then(() => {
+          this.error = undefined;
+          this.errorMessage = undefined;
+        })
+        .catch((error: unknown) => {
+          const msg = error instanceof Error ? error.message : String(error);
+          this.errorMessage = 'Error loading manifest or playing video';
+          this.error = msg;
+        });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (changes['url']) {
+      const { currentValue, previousValue, firstChange, isFirstChange } =
+        changes['url'];
+      if (!firstChange) {
+        this.createPlayerUI();
+      }
+      if (currentValue !== previousValue ) {
+        this.initPlayer();
+      }
     }
   }
 
