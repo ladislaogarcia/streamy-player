@@ -10,7 +10,18 @@
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "emitDecoratorMetadata": false,
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+      "@/components/*": [
+        "apps/streamy-player/src/components/*"
+      ],
+      "shaka-player-ui": [
+        "./node_modules/shaka-player/dist/shaka-player.ui"
+      ],
+      "shaka-player-ui.debug": [
+        "./node_modules/shaka-player/dist/shaka-player.ui.debug"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -29,7 +40,7 @@
       "path": "./tsconfig.spec.json"
     },
     {
-      "path": "apps/streamy-player/tsconfig.server.json"
+      "path": "./tsconfig.server.json"
     }
   ]
 }

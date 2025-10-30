@@ -2,7 +2,9 @@
   "name": "@streamy-player/source",
   "version": "0.0.0",
   "license": "GPL-3.0-only",
-  "scripts": {},
+  "scripts": {
+    "frontend:dev": "nx serve streamy-player"
+  },
   "dependencies": {
     "@angular/common": "~20.3.0",
     "@angular/compiler": "~20.3.0",
@@ -15,6 +17,8 @@
     "@angular/ssr": "~20.3.0",
     "express": "^4.21.2",
     "rxjs": "~7.8.0",
+    "shaka-player": "^4.16.7",
+    "video.js": "^8.23.4",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
